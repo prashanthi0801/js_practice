@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form>
+            <label>Full Name</label>
+            <br>
+            <input type="text" pattern="[a-zA-z\s]+" required>
+            <br>
+            <label>Email</label>
+            <br>
+            <input type="email" pattern="[a-zA-z_@0-9]" required>
+            <br>
+            <label for="">password</label>
+            <br>
+            <input type="password" minlength=8 pattern="[a-zA-z0-9]">
+            <br>
+            <h1>Gender</h1>
+            <input type="radio" name="gend" id="male">
+            <label for="male">male</label>
+            <br>
+            <input type="radio" name="gend" id="female">
+            <label for="female">female</label>
+            <br>
+            
+            <input type="radio" name="gend">
+            <label for="">other</label>
+            <br>
+            <h1>Hobbies</h1>
+
+
+            <input type="checkbox">
+            <label for="">Reading</label>
+            <br>
+            <input type="checkbox">
+            <label for="">Sports</label>
+            <br>
+            <input type="checkbox">
+            <label for="">Music</label>
+            <br>
+            <label for="" >Country</label>
+            <br>
+            <select name="Countries" id="" >
+                <option value="" disable selected>select your country</option>
+                <!-- <optgroup label="Countries">Countries</optgroup> -->
+                <option value="India">India</option>
+                <option value="China">China</option>
+                <option value="USA">USA</option>
+
+            </select>
+            <br>
+            <input type="submit" name="" id="" value="submit">
+        </form>
+    </div>
+</body>
+</html>

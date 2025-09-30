@@ -1,0 +1,21 @@
+<form id="myForm">
+  <input type="text" name="username" value="Alice">
+  <input type="password" name="password" value="1234">
+  <button type="submit">Login</button>
+</form>
+
+<script>
+let form = document.getElementById("myForm");
+console.log(form.elements)
+
+// // Access by name
+// console.log(form.elements["username"].value); // Alice
+// console.log(form.elements["password"].value); // 1234
+
+// // Access by index
+// console.log(form.elements[0].value); // Alice
+// console.log(form.elements[1].value); // 1234
+
+// // Total form controls
+// console.log(form.elements.length); // 3 (username, password, button)
+</script>

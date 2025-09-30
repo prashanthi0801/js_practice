@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visit Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f4f4f4;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      display: inline-block;
+      min-width: 300px;
+    }
+    h1 { margin-bottom: 20px; }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background: #007BFF;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>👋 Welcome Back!</h1>
+    <p id="visitCount">Visits: 0</p>
+    <p id="lastVisit">Last Visit: --</p>
+    <button id="resetBtn">Reset Counter</button>
+  </div>
+
+  <script>
+    // JS will go here
+    let visitsEl=document.getElementById("visitCount")
+    let lastVisiEl=document.getElementById("lastVisit")
+    let resetBtn=document.getElementById("resetBtn")
+    document.addEventListener("DOMContentLoaded",()=>{
+        let counter=sessionStorage.getItem("counter")
+        if(counter){
+            counter++
+        }
+        else{
+            counter=1
+        }
+        sessionStorage.setItem("counter",counter)
+        visitsEl.textContent= `Visits: ${parseInt(counter)}`
+        let lastVisit=sessionStorage.getItem("lastVisit")
+        if(lastVisit){
+            lastVisiEl.textContent=`Last Visit: ${lastVisit}`
+        }
+        else{
+            lastVisiEl.textContent=`Last Visit:  "First visit"`
+        }
+        let now= new Date().toLocaleString()
+sessionStorage.setItem("lastVisit",now)
+
+
+
+    }
+    
+)
+resetBtn.addEventListener("click",()=>{
+    visitsEl.textContent=`Visits: -`
+    lastVisiEl.textContent=`Last Visit: --`
+    sessionStorage.clear()
+
+
+})
+
+
+  </script>
+</body>
+</html>

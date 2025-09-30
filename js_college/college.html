@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" id="newForm">
+        <label for="">Full Name</label>
+        <input type="text"name="name" required>
+        <label for="">Email</label>
+        <input type="email "name="email" required>
+        <label for="">Phone Number</label>
+        <input type="text"name="phone" required>
+        <label for="">Course selection</label>
+        <select  id="course" name="course" required>
+            <option value="B.Tech">B.Tech</option>
+            <option value="M.Tech">M.Tech</option>
+            <option value="MBA">MBA</option>
+            <option value="B.Sc">B.Sc</option>
+            <option value="M.Sc">M.Sc</option>
+        </select>
+        <label for="">Year of Study</label>
+        <input type="number" max="4" min="1" id="study" required name="study">
+    </form>
+    <button type="submit" id="submit">Submit</button>
+    <div id="result"></div>
+    <script>
+        let formEl=document.getElementById("newForm")
+        let buttonEl=document.getElementById("submit")
+        let divEl=document.getElementById("result")
+        buttonEl.addEventListener("click",(e)=>{
+            let formData= new FormData(formEl)
+
+            e.preventDefault()
+            divEl.innerHTML=`
+            Submitted Details
+            Name: ${formData.get("name")}
+            Email: ${formData.get("email")}
+            Phone: ${formData.get("phone")}
+            Course: ${formData.get("course")}
+            Year: ${formData.get("study")}
+
+            `
+
+        })
+
+    </script>
+</body>
+</html>

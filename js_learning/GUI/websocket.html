@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Registration</title>
+</head>
+<body>
+<h1>Register for Chat</h1>
+  <form id="registerForm">
+    <input type="text" name="username" placeholder="Enter your username" required>
+    <button type="submit" id="submitBtn">Join</button>
+  </form>
+  <div id="roomDisplay"></div>
+  <h2>Chat</h2>
+  <div id="wsMessages" style="border:1px solid #ccc;height:50px;overflow-y:auto;padding:5px;"></div>
+
+  <script>
+    // Task:
+    let divEl=document.getElementById("wsMessages")
+    
+    // 1. Connect to WebSocket server ws://localhost:4000
+    const ws=new WebSocket("ws://localhost:4000")
+    // 2. Listen for incoming messages and append them to #wsMessages
+    ws.onmessage=(e)=>{
+        divEl.textContent=e.data
+
+    }
+    // 3. On form submit, prevent reload, create FormData, send POST request to /register using fetch
+    let formEl=document.getElementById("registerForm")
+    formEl.addEventListener("submit",async(e)=>{
+        e.preventDefault()
+        let formData=new FormData(formEl)
+        // console.log(formData)
+        let response= await fetch("/register",{
+            method:"POST",
+            body:formData   
+
+        })
+        let data=await response.json
+        let roomdiv=document.getElementById("roomDisplay")
+        roomdiv.textContent=data.room
+
+    })
+
+    // 4. Update #roomDisplay with the 'room' from JSON response
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+#apple-shelf{
+    background-color: #ff7f7f;
+    width: 200px;
+    height: 40px;
+    margin: 20px auto;
+    border-radius: 10px;
+
+}
+#orange-shelf{
+    background-color: #ffa07a;
+    width: 200px;
+    height: 40px;
+    margin: 20px auto;
+    border-radius: 10px;
+}

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 🏆 Form Validation Challenges
+🔹 Level 1: Basics
+
+Create a form with a single username field.
+
+Use required and minlength=3.
+
+When submitted, alert the entered name.
+
+Add an email field.
+
+Use HTML5 validation (type="email").
+
+Prevent form submission in JS if the email doesn’t contain @. 
+🔹 Level 2: Multiple Inputs
+
+Add a password field.
+
+Rule: Must be at least 6 characters.
+
+If not valid, display an error below the field.
+
+Add a confirm password field.
+
+Rule: Must match the first password.
+
+If mismatch → show ❌ “Passwords don’t match”.
+
+If match → show ✅ “Passwords match”.
+🔹 Level 3: Real-time Validation
+
+Validate email live while typing (input event).
+
+Show "✅ valid email" or "❌ invalid email" in green/red text below.
+
+Validate password strength live.
+
+Weak → red, Medium → orange, Strong → green.
+
+Example rule:
+
+Weak = <6 characters
+
+Medium = >=6 + contains numbers
+
+Strong = >=8 + contains numbers + special characters
+🔹 Level 4: Advanced
+
+Add a phone number field.
+
+Only allow 10 digits (use regex or .length).
+
+If user types letters, prevent it.
+
+Add a checkbox “I agree to terms”.
+
+Form should not submit unless checked.
+
+Add a select dropdown for "Country".
+
+Validate that the user selects something other than default.
+-->
+<form action="">
+    <label for="">username</label>
+    <input type="text" id="username" required minlength=3>
+    <label for="">email</label>
+    <input type="email" id="email">
+    <p id="emailvalid"></p>
+    <label for="">password</label>
+    <input type="password" minlength=6 id="password" required>
+    <input type="checkbox" id="showpass"> Show Password
+    <p id="passwordvalid"></p>
+    <label for="">confirm password</label>
+    <input type="password" id="confirmpassword" required>
+    <label for="">Phone</label>
+    <input type="text" id="phone" maxlength="10" required>
+    <p id="phoneval"></p>
+     <!-- <input type="text" name="" id=""> -->
+    <textarea name="About me" id="aboutme" maxlength="200"></textarea>
+    <p id="count"></p>
+    <input type="radio" id="female" name="gender" required>
+    <label for="" >Female</label>
+    <input type="radio" id="male" name="gender">
+    <label for="" >Male</label>
+    <input type="radio" id="other" name="gender">
+    <label for="" >Other</label>
+    <br><br>
+    <label for="" id="country"></label>
+    <select name="country" id="countries"> Select country
+        <option value="Select country" disabled>Select country</option>
+        <option value="India" id="India"> India</option>
+        <option value="UK" id="UK"> UK</option>
+        <option value="USA" id="USA" name="us_state">USA
+            
+        </option>
+            </select>
+        <div id="state_container" style="display:none; margin-top:10px;">
+             <label for="us_state">State:</label>
+        <select name="us_state" id="us_state">
+                <option value="select state" disabled>select state</option>
+                <option value="texas" >texas</option>
+                <option value="washington">washington</option>
+                <option value="nyc">nyc</option>
+            </select>
+            </div>
+            <br><br>
+        <input type="file" id="file">
+        <br><br>
+
+
+    <input type="checkbox" id="checkbox"> <b id="cond">i agree to all terms and conditions</b>
+    <br><br>
+    <input type="submit" id="submit">
+    
+    
+</form>
+</body>
+<script>
+    let usernameEl=document.getElementById("username")
+    let  submitEl=document.getElementById("submit")
+    let  emailEl=document.getElementById("email")
+    let passwordEl=document.getElementById("password")
+    let CpasswordEl=document.getElementById("confirmpassword")
+    let passwordvalidEl=document.getElementById("passwordvalid")
+    let emailvalidEl=document.getElementById("emailvalid")
+    let showpassEl=document.getElementById("showpass")
+    let phoneEl=document.getElementById("phone")
+    let checkboxel=document.getElementById("checkbox")
+    let condEl=document.getElementById("cond")
+    let aboutmeEl=document.getElementById("aboutme")
+    let counter=200
+    let countEl=document.getElementById("count")
+    let countriesEl=document.getElementById("countries")
+    let state_containerEl=document.getElementById("state_container")
+    let fileEl=document.getElementById("file")
+    fileEl.addEventListener("submit",(e)=>{
+        let f=fileEl.files[0]
+        if(f){
+            let types=["image/jpeg", "image/png"]
+            if(!types.includes(f.type)){
+                alert("Only JPG or PNG images are allowed!");
+                e.preventDefault()
+
+            }
+
+        }
+    })
+    countriesEl.addEventListener("change",(e)=>{
+        if(e.target.value==="USA"){
+            state_containerEl.style.display="block"
+        }
+        else{
+            state_containerEl.style.display="none"
+        }
+    })
+    countEl.textContent=`${counter}/${counter} characters left`
+    aboutmeEl.addEventListener("input",(e)=>{
+            countEl.textContent=`${counter-aboutmeEl.value.length}/${counter} characters left`
+        
+    })
+    submitEl.disabled=true
+    checkboxel.addEventListener("change",()=>{
+        submitEl.disabled=!checkboxel.checked
+    })
+
+    phoneEl.addEventListener("input", () => {
+    phoneEl.value = phoneEl.value.replace(/\D/g, ""); // remove non-digits
+})
+    showpassEl.addEventListener("change",check)
+    function check(){
+        if(showpassEl.checked){
+            passwordEl.type="text"
+        }
+        else{
+            passwordEl.type="password"
+        }
+    }
+    emailEl.addEventListener("input" , emailvalid)
+    function emailvalid(){
+        if(emailEl.value.includes("@")&&emailEl.value.includes(".")){
+            emailvalidEl.textContent="✅ valid email"
+            emailvalidEl.style.color="green"
+    }
+        else{
+            emailvalidEl.textContent="❌ invalid email" 
+            emailvalidEl.style.color="red"
+    }
+    } 
+    passwordEl.addEventListener("input",passwordvalid)
+    function passwordvalid(e){
+        if(e.target.value.trim().length===0){
+            passwordvalidEl.textContent=""
+        }
+        if(e.target.value.trim().length>=8 && /\d/.test(e.target.value.trim()) && /[!@#$%^&*(){}:",.<>|?]/.test(e.target.value.trim()) ){
+            passwordvalidEl.textContent="Strong ✅"
+            passwordvalidEl.style.color="green"
+        }
+
+        else if(e.target.value.trim().length>=6 && /\d/.test(e.target.value.trim())){
+            passwordvalidEl.textContent="Medium 🟠"
+            passwordvalidEl.style.color="orange"
+
+        }
+        else{
+            passwordvalidEl.textContent="Weak ❌"
+            passwordvalidEl.style.color="red"
+        }
+
+    }
+
+    submitEl.addEventListener("click",printData)
+    function printData(e){
+        // alert(e.target.value)
+        e.preventDefault()
+        let data=usernameEl.value.trim()
+        let emailData=emailEl.value.trim()
+        alert(data)
+        
+        if(!emailData.includes("@")){
+            // e.preventDefault()
+            alert("❌ Invalid email address!")
+        }
+        if(passwordEl.value==""){
+            alert("password field must not be empty")
+        }
+        else{
+            if(passwordEl.value.trim().length<6){
+            alert("password must be 6 characters long")
+
+        }
+            if(passwordEl.value!=CpasswordEl.value ){
+                alert("❌ Passwords don’t match.")
+        }
+            else{
+                alert("✅ Passwords match.")
+        }
+            
+        }
+        
+        
+        
+
+        
+    }
+    
+</script>
+</html>

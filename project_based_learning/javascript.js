@@ -1,0 +1,9 @@
+const f=new URLSearchParams(window.location.search);
+nameEl=document.querySelector("#name");
+nameEl.textContent=f.get("name");
+ageEl=document.querySelector("#age");
+ageEl.textContent=f.get("age");
+phoneEl=document.querySelector("#phone");
+phoneEl.textContent=f.get("phone");
+aadharEl=document.querySelector("#aadhar");
+aadharEl.textContent=f.get("aadhar");

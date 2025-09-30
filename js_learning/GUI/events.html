@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Loading Events Demo</title>
+</head>
+<body>
+  <h1>Page Loading Events Demo</h1>
+  <p>Open the console (F12 → Console) to see event logs.</p>
+  <img src="https://via.placeholder.com/400x200" alt="Demo Image">
+
+  <script>
+    // Fires when DOM is parsed (HTML ready, but images/CSS may not be loaded)
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("✅ DOMContentLoaded: DOM fully loaded and parsed.");
+    });
+
+    // Fires when everything (DOM + CSS + images) is loaded
+    window.addEventListener("load", () => {
+      console.log("✅ load: Page fully loaded with all resources.");
+    });
+
+    // Fires when user is about to leave/refresh
+    window.addEventListener("beforeunload", (event) => {
+      console.log("⚠️ beforeunload: User is leaving or refreshing.");
+      // Uncomment to show confirmation dialog:
+      // event.preventDefault();
+      // event.returnValue = "";
+    });
+
+    // Fires when page is actually unloading
+    window.addEventListener("unload", () => {
+      console.log("❌ unload: Page is unloading.");
+    });
+  </script>
+</body>
+</html>

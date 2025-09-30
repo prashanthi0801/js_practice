@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="">Enter something dude</label>
+        <input type="text" id="inputval" required>
+    </form>
+    <script>
+        let inputEl= document.getElementById("inputval")
+        inputEl.addEventListener("keydown",writeAndClear)
+
+          function writeAndClear(e){
+            if(e.key==="Enter" && e.target.value!=""){
+                let h1El=document.createElement("h1")
+                document.body.appendChild(h1El)
+                console.log(e.code)
+                e.preventDefault()
+                let data=e.target.value
+            
+                h1El.textContent=data
+            
+                e.target.value=""
+
+            }
+
+          }
+//         focus → fires when element gains focus
+
+// blur → fires when element loses focus
+
+// input → fires whenever the value changes (typing, deleting, pasting)
+
+// change → fires when value changes and focus is lost (good for dropdowns, checkboxes, radio buttons)
+
+// invalid → fires when input fails validation (e.g., empty required field, wrong email format)
+// submit → fires when form is submitted (Enter key / button click)
+
+// reset → fires when form is reset (<button type="reset">)
+//     keydown → when a key is pressed
+
+// keypress (deprecated, but still works) → when a printable character key is pressed
+
+// keyup → when a key is released
+
+// 🔹 Clipboard Events (cut/copy/paste)
+
+// copy → when user copies text
+
+// cut → when user cuts text
+
+// paste → when user pastes text
+// select → when user selects text inside an <input> or <textarea>
+    // inputEl.addEventListener("paste",copyFunc)
+    // function copyFunc(e){
+    //     console.log(e.clipboardData.getData("text"))
+    // }
+    </script>
+</body>
+</html>

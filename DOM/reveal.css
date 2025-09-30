@@ -1,0 +1,55 @@
+/* General page styling */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to bottom, #1f2c38, #263845);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Heading */
+#main-heading {
+    font-size: 2.5rem;
+    margin-top: 50px;
+}
+
+/* Container for button and hidden content */
+.container {
+    margin: 40px auto;
+    width: 60%;
+    background: transparent;
+}
+
+/* Box style */
+.boxes {
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Reveal button style */
+.reveal-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Hidden content initially invisible */
+.hidden-content {
+    display: none;
+    font-size: 1rem;
+    text-align: left;
+    line-height: 1.5;
+}
+
+/* Show hidden content when active */
+.hidden-content {
+    display: none;
+}
+.hidden-content.reveal-btn{
+    display: block;
+}

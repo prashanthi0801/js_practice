@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Library CRUD</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+    }
+    #bookForm {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    input, button {
+      padding: 8px;
+    }
+    #bookList {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 500px;
+      margin: auto;
+    }
+    .book {
+      background: white;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .actions button {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Book Library</h1>
+
+  <form id="bookForm">
+    <input type="text" id="title" placeholder="Book Title" required>
+    <input type="text" id="author" placeholder="Author" required>
+    <button type="submit">Add Book</button>
+  </form>
+
+  <div id="bookList"></div>
+
+  <script>
+    // JS will go here
+    let divEl=document.getElementById("bookList")
+    let formEl=document.getElementById("bookForm").addEventListener("submit",async (e)=>{
+      e.preventDefault()
+        let titleEl=document.getElementById("title")
+        let authorEl=document.getElementById("author")
+        let title=titleEl.value
+        let author=authorEl.value
+        let newBook = {
+    title: title,
+    author: author,
+    status: "unread"
+  };
+  let response=await fetch("http://localhost:3000/books",{
+    method:"POST",
+    headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newBook)
+    });
+    await x()
+  })
+
+    async function x() {
+        let response=await fetch("http://localhost:3000/books")
+    let data=await response.json()
+    // console.log(data)
+    data.forEach((ele,index) => {
+        let liEl=document.createElement("li")
+    liEl.classList.add("book")
+    liEl.textContent=data[index].title + " - " + data[index].author + " (" + data[index].status + ")"
+    divEl.appendChild(liEl)
+
+        
+    });
+
+    
+
+        
+    }
+    x()
+    
+  </script>
+</body>
+</html>

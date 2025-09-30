@@ -1,0 +1,6 @@
+let time=new Date()
+console.log(time.toDateString())
+let today=new Date()
+let tomorrow=new Date()
+tomorrow.setTime(today.getTime()+24*60*60*1000)
+console.log(tomorrow.toDateString())

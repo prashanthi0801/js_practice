@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autosave Notes App</title>
+  <style>
+    /* General body styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 50px 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Notes container */
+    #notesContainer {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    /* Textarea styling */
+    #notesTextarea {
+      width: 100%;
+      min-height: 300px;
+      padding: 15px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+      box-sizing: border-box;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    #notesTextarea:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+      outline: none;
+    }
+
+    /* Clear button styling */
+    #clearBtn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #ff4d4d;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    #clearBtn:hover {
+      background-color: #e60000;
+      transform: scale(1.05);
+    }
+
+    #clearBtn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <h1>My Notes</h1>
+  <div id="notesContainer">
+    <textarea id="notesTextarea" data-testid="notes-textarea" placeholder="Start typing your notes here..."></textarea>
+    <button id="clearBtn" data-testid="clear-button">Clear</button>
+  </div>
+  <form action=""></form>
+  <script>
+    let textData=document.getElementById("notesTextarea")
+    function setcookie(cname,cvalue){
+        document.cookie=`${cname}=${cvalue}`
+
+        
+    }
+    function getcookie(cname){
+        const cdecode=decodeURIComponent(document.cookie)
+        let carr=cdecode.split("; ")
+        for(let c of carr){
+            const [key, val] = c.split("=");
+        if (key === cname) return decodeURIComponent(val);
+        
+    
+
+        }
+        
+            return ""
+        
+    }
+    textData.addEventListener("input",()=>{
+        setcookie("data",textData.value)
+
+
+    }
+)
+    textData.value=getcookie("data")||""
+
+
+let buttonEl=document.getElementById("clearBtn").addEventListener("click",()=>{
+    document.cookie = "data=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+})
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Registration</title>
+  <script ></script>
+</head>
+<body>
+ <h1>Register for Chat</h1>
+  <form id="registerForm">
+    <input type="text" name="username" placeholder="Enter your username" required>
+    <button type="submit" id="submitBtn">Join</button>
+  </form>
+  <div id="roomDisplay"></div>
+  <script>
+    // 1. On form submit, prevent reload, create FormData, send POST request to /register using fetch
+    // 2. Update #roomDisplay with the 'room' from JSON response
+    let a=document.getElementById("registerForm");
+    let b=document.getElementById("submitBtn");
+    a.addEventListener("submit",function(event){
+        event.preventDefault();
+        console.log("a");
+        const formdata=new FormData(a);
+        // console.log([...formdata.entries()]);
+        
+         const username=formdata.get("username");
+    async function user(){
+    let response=await fetch("http://localhost:5000/users",{
+        method:"POST",
+        headers:{"Content-Type": "application/json"},
+        body: JSON.stringify({username:username,room:"room for "+username})
+        });
+    let p=await response.json()
+    console.log(p);
+    document.getElementById("roomDisplay").textContent=p.room;
+    }
+    user()
+});
+    
+  </script>
+</body>
+</html>

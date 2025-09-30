@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drag and Drop Layout</title>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5f5f5;
+    }
+
+    .image {
+      width: 100px;
+      height: 100px;
+      background: lightblue;
+      position: absolute; /* important for moving later with JS */
+      cursor: grab;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      /* background-image: url(shu); */
+    }
+
+    .dragging {
+      opacity: 0.7;
+      border: 2px dashed #333;
+      cursor: grabbing;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="image">
+    <img src="C:\Users\lenovo\Desktop\Java_script\project_based_learning\WhatsApp Image 2025-08-26 at 10.28.12_0fba3e73.jpg" alt="">
+  </div>
+  <img src="" alt="">
+  <script>
+    let divEl=document.querySelector("div")
+    let isDragging=false
+    let offsetX=0
+    let offsetY=0
+    divEl.addEventListener("mousedown",(e)=>{
+        isDragging=true
+        offsetX=e.clientX-divEl.offsetLeft
+        offsetY=e.clientY-divEl.offsetTop 
+        divEl.classList.add("dragging")
+    })
+    divEl.addEventListener("mousemove",(e)=>{
+        if(isDragging){
+            divEl.style.left=e.clientX-offsetX+"px"
+            divEl.style.top=e.clientY-offsetY+"px"
+        }
+    })
+    divEl.addEventListener("mouseup",()=>{
+        isDragging=false
+        divEl.classList.remove("dragging")
+    })
+  </script>
+
+</body>
+</html>

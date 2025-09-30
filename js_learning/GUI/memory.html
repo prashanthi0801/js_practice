@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Comment Box</title>
+ <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+}
+
+.container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  width: 400px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#commentInput {
+  width: 100%;
+  height: 70px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+#postBtn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border: none;
+  background: #007BFF;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+#postBtn:hover {
+  background: #0056b3;
+}
+
+#commentList {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment {
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment button {
+  background: red;
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment button:hover {
+  background: darkred;
+}
+
+
+ </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💬 Live Comment Box</h1>
+
+    <textarea id="commentInput" placeholder="Write a comment..."></textarea>
+    <button id="postBtn">Post</button>
+
+    <div id="commentList"></div>
+  </div>
+  <script>
+    let divEl=document.getElementById("commentList")
+    let inputEl=document.getElementById("commentInput")
+    let postBtnEl=document.getElementById("postBtn").addEventListener("click",()=>{
+        let newDivEl=document.createElement("div")
+        newDivEl.setAttribute("class","comment")
+        newDivEl.innerHTML=`<div class="comment">
+  <span>${inputEl.value}</span>
+  <span><button>❌</button> </span>
+</div>
+`
+        divEl.appendChild(newDivEl)
+    })
+
+  </script>
+</body>
+</html>

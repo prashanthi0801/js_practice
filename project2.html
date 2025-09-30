@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Products Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .product-card {
+      width: 200px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      padding: 15px;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .product-card button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .product-card button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Products</h1>
+
+  <select id="sortOptions">
+  <option value="">-- Sort Products --</option>
+  <option value="lowToHigh">Price: Low → High</option>
+  <option value="highToLow">Price: High → Low</option>
+  <option value="az">Name: A → Z</option>
+  <option value="za">Name: Z → A</option>
+</select>
+<div>
+
+<select id="filterOptions">
+  <option value="">-- Filter Products --</option>
+  <option value="under1000">Under ₹1000</option>
+  <option value="1000to2000">₹1000 - ₹2000</option>
+  <option value="above2000">Above ₹2000</option>
+</select>
+</div>
+
+
+
+
+  <div class="products-container">
+    <!-- JS will dynamically render product cards here -->
+  </div>
+  <div id="cart" class="products-container">
+<div>Cart</div>
+  </div>
+
+  <script>
+    // 👉 Your JS goes here:
+    let cart=[]
+
+    // 1. Create an array of product objects with keys: id, name, price, img
+    let products = [
+  {id:1, name:"Shirt", price:500, img:"profile.jpg"},
+  {id:2, name:"Jeans", price:1200, img:"profile.jpg"},
+  {id:3, name:"Shoes", price:2000, img:"profile.jpg"}
+];
+
+    // 2. Select the container: document.querySelector('.products-container')
+    let containerEl=document.querySelector(".products-container")
+    // 3. Use map() to create product cards dynamically:
+    //    - Each card contains image, name, price, Add to Cart button
+    function renderProducts(products){
+      containerEl.innerHTML=""
+
+    products.forEach(p=>{
+        let cardEl=document.createElement("div")
+    cardEl.classList.add("class","product-card")
+        let imgEl=document.createElement("img")
+        imgEl.src=p.img
+        // imgEl.addEventListener("click",()=>{
+        //   alert(priceEl.textContent)
+        // })
+        let nameEl=document.createElement("p")
+        nameEl.textContent=p.name
+        let priceEl=document.createElement("p")
+        priceEl.textContent=p.price
+        let buttonEl=document.createElement("button")
+        buttonEl.textContent="add to cart"
+        imgEl.addEventListener("click",()=>{
+          // alert(priceEl.textContent)
+        })
+        buttonEl.addEventListener("click",()=>{
+          // cart.push(p)
+          // alert("item has been added")
+          addToCart(p)
+          totalPrice()
+
+        })
+        cardEl.appendChild(imgEl)
+        cardEl.appendChild(nameEl)
+        cardEl.appendChild(priceEl)
+        cardEl.appendChild(buttonEl)
+        containerEl.appendChild(cardEl)
+
+
+
+
+    })}
+    function addToCart(product){
+      let exisiting = cart.find(item=>(item.id===product.id))
+      if(exisiting){
+        exisiting.qty+=1
+      }
+      else{
+      cart.push({...product,qty:1})
+      }
+renderCart()
+    }
+    renderProducts(products)
+    let containerEl1=document.getElementById("cart")
+function renderCart(){
+containerEl1.innerHTML="<div>Cart</div>"
+
+    cart.forEach((p,index)=>{
+      let cartEl1=document.createElement("div")
+      cartEl1.classList.add("class","product-card")
+        let imgEl1=document.createElement("img")
+        imgEl1.src=p.img
+        // imgEl.addEventListener("click",()=>{
+        //   alert(priceEl.textContent)
+        // })
+        let qtyEl=document.createElement("p")
+        qtyEl.textContent="Qty: "+p.qty
+        let nameEl1=document.createElement("p")
+        nameEl1.textContent=p.name
+        let priceEl1=document.createElement("p")
+        priceEl1.textContent= p.price
+        let totalPriceEl=document.createElement("p")
+        totalPriceEl.textContent="Total: "+p.qty *p.price
+        let buttonEl1=document.createElement("button")
+        buttonEl1.textContent="remove from cart"
+        imgEl1.addEventListener("click",()=>{
+          // alert(priceEl1.textContent)
+        })  
+        buttonEl1.addEventListener("click",()=>{
+          if(p.qty==1){
+          cart=cart.filter((item,i) => i!==index)
+          }
+          else{
+            p.qty-=1
+          }
+          // alert("item has been removed")
+          renderCart()
+          totalPrice()
+
+        })
+        cartEl1.appendChild(imgEl1)
+        cartEl1.appendChild(nameEl1)
+        cartEl1.appendChild(priceEl1)
+        cartEl1.appendChild(buttonEl1)
+        cartEl1.appendChild(qtyEl)
+        cartEl1.appendChild(totalPriceEl)
+        containerEl1.appendChild(cartEl1)
+
+
+
+    })}
+    let sortingEl=document.getElementById("sortOptions").addEventListener("change",(e)=>{
+      let option=e.target.value
+      let sortedProducts=[...products]
+      if(option==="lowToHigh"){
+        sortedProducts.sort((a,b)=>a.price-b.price)
+      }
+      else if(option==="highToLow"){
+        sortedProducts.sort((a,b)=>b.price-a.price)
+      }
+      else if(option==="az"){
+        sortedProducts.sort((a,b)=>a.name.localeCompare(b.name))
+      }
+      else if(option==="za"){
+        sortedProducts.sort((a,b)=>b.name.localeCompare(a.name))
+      }
+      renderProducts(sortedProducts)
+
+
+    })
+    let filterEl=document.getElementById("filterOptions").addEventListener("change",(e)=>{
+      let value=e.target.value
+      let filteredProducts=[...products]
+      if(value==="under1000"){
+        filteredProducts=filteredProducts.filter(f=>f.price<1000)
+      }
+      else if(value==="1000to2000"){
+        filteredProducts=filteredProducts.filter(f=>f.price>1000 && f.price<2000)
+      }
+      else if(value==="above2000"){
+        filteredProducts=filteredProducts.filter(f=>f.price>2000)
+      }
+      renderProducts(filteredProducts)
+    })
+
+    
+    // cardEl.textContent=products.map(p=>p.name)
+    // cardEl.textContent+=products.map(p=>p.price)
+    // imgEl.setAttribute("src",products.img)
+    // cardEl.appendChild(buttonEl)
+    // cardEl.appendChild(imgEl)
+
+    // containerEl.appendChild(cardEl)
+    // 4. Add click event on image to show price in alert() or 
+    
+    // 5. Add click event on "Add to Cart" button:
+    //    - Push product into cart array
+    //    - Show prompt: "Item added. Cart now has X items"
+    // 6. Optional: display cart items below or sidebar
+
+    let checkOutPrice=document.createElement("h1")
+    function totalPrice(){
+    let total=cart.reduce((c,i)=>c+(i.price*i.qty),0)
+    checkOutPrice.textContent="Total: "+total
+  //  console.log("hey")
+    }
+       document.body.appendChild(checkOutPrice)
+
+
+  </script>
+
+</body>
+</html>

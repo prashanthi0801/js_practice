@@ -1,0 +1,49 @@
+<html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Registration</title>
+</head>
+<body>
+ <h1>Register for Chat</h1>
+  <form id="registerForm" >
+    <input type="text" name="username" placeholder="Enter your username" required>
+    <button type="submit" id="submitBtn">Join</button>
+  </form>
+  <div id="roomDisplay"></div>
+  <script>
+  // import fs from "fs"
+    // 1. On form submit, prevent reload, create FormData, send POST request to /register using fetch
+    // 2. Update #roomDisplay with the 'room' from JSON response
+    let formEl=document.getElementById("registerForm")
+    let divEl=document.getElementById("roomDisplay")
+    formEl.addEventListener("submit", async (e)=>{
+        e.preventDefault()
+        let formData=new FormData(formEl)
+        // console.log(formData)
+        // console.log([...formData.entries()]);
+        
+             let response=await fetch("http://localhost:4000/register",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({"name":formData.get("username"),"room":"room-for"+formData.get("username")})
+        })
+        let data=await response.json()
+        console.log(data)
+        // fs.writeFile("test.json",data)
+
+        divEl.textContent=data[0].room
+            
+        
+        
+
+
+    })
+
+
+    
+        
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>Welcome students!</div>
+    <h1>Hey</h1>
+    <ul>
+        <li>java</li>
+        <li>c++</li>
+        <li>python</li>
+    </ul>
+    <form action="">
+        <label for="">Test</label>
+        <input type="text" id="input">
+        <input type="submit" id="submit">
+    </form>
+    <script>
+        // task-1
+        let bodyEl=document.body
+        setTimeout(() => {
+            bodyEl.style.backgroundColor="yellow"
+            
+        }, 2000);
+        // bodyEl.style.backgroundColor="white"
+        // task-2
+        let divEl=document.querySelector("div")
+        // console.log(divEl)
+        setTimeout(() => {
+            divEl.hidden=true
+            
+        }, 5000);
+        setTimeout(() => {
+            divEl.hidden=false
+            bodyEl.style.backgroundColor="white"
+
+            
+        }, 8000);
+        // task - 4
+        let h1El=document.querySelector("h1")
+        h1El.textContent= 'JavaScript DOM Practice'
+        let ulEl=document.body.children
+        let ulel=ulEl[ulEl.length-2]
+        alert(ulel.children.length)
+        // console.log(ulEl)
+        // task-5
+        let liEls=ulel.children
+        for(let li of liEls){
+            li.addEventListener("click",()=>{
+            li.style.backgroundColor="green"
+        })
+
+        }
+        // task - 6
+        let h3El=document.createElement("h3")
+        let submitEl=document.getElementById("submit")
+        let inputEl=document.getElementById("input")
+        submitEl.addEventListener("click",()=>{
+            h3El.textContent=inputEl.value
+
+
+        })
+        
+
+    </script>
+</body>
+</html>

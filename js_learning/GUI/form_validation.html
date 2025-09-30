@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Form Validator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 400px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    input.valid {
+      border-color: green;
+    }
+
+    input.invalid {
+      border-color: red;
+    }
+
+    button {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 14px;
+    }
+
+    .success-msg {
+      color: green;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Signup Form</h1>
+    <form id="signupForm">
+      <input type="text" id="name" placeholder="Full Name">
+      <span id="nameError" class="error-msg"></span>
+
+      <input type="email" id="email" placeholder="Email">
+      <span id="emailError" class="error-msg"></span>
+
+      <input type="password" id="password" placeholder="Password">
+      <span id="passwordError" class="error-msg"></span>
+
+      <button type="submit">Sign Up</button>
+      <span id="successMsg" class="success-msg"></span>
+    </form>
+  </div>
+
+  <script>
+    // Your JS validation will go here
+    let nameEl=document.getElementById("name")
+    let nameEr=document.getElementById("nameError")
+    nameEl.addEventListener("input",(e)=>{
+        if(e.target.value.length<3){
+            nameEr.innerHTML="name must be greater than 3 chars"
+            nameEl.classList.add("invalid")
+            nameEl.classList.remove("valid")
+
+
+
+    }
+    else{nameEr.innerHTML=""
+                nameEl.classList.remove("invalid")
+            nameEl.classList.add("valid")
+
+    }
+
+    })
+    let emailEl=document.getElementById("email")
+    let emailEr=document.getElementById("emailError")
+    emailEl.addEventListener("input",(e)=>{
+        if(!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(e.target.value)){
+            emailEr.innerHTML="invalid email"
+            emailEl.classList.add("invalid")
+            emailEl.classList.remove("valid")
+
+    }
+    else{emailEr.innerHTML=""
+                emailEl.classList.remove("invalid")
+            emailEl.classList.add("valid")
+    }
+
+    })
+    let passEl=document.getElementById("password")
+    let passEr=document.getElementById("passwordError")
+    passEl.addEventListener("input",(e)=>{
+        if(e.target.value.length<6){
+            passEr.innerHTML="invalid password"
+            passEl.classList.add("invalid")
+            passEl.classList.remove("valid")
+    }
+    else{passEr.innerHTML=""
+                passEl.classList.remove("invalid")
+            passEl.classList.add("valid")
+    }
+
+    })
+    let form = document.getElementById("signupForm");
+let successMsg = document.getElementById("successMsg");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); 
+
+  if (nameEl.classList.contains("valid") &&
+      emailEl.classList.contains("valid") &&
+      passEl.classList.contains("valid")) {
+    successMsg.innerHTML = "Signup Successful ✅";
+  } else {
+    successMsg.innerHTML = "Please fix errors before submitting ❌";
+  }
+});   
+
+    
+  </script>
+</body>
+</html>

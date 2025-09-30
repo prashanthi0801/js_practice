@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="output"></div>
+    <script>
+    let params=new URLSearchParams(window.location.search)
+    console.log(params)
+    const name=params.get("name")
+    const age=params.get("age")
+    const Phone=params.get("Phone")
+    const aadhar=params.get("Aadhar")
+    document.getElementById("output").innerHTML=`
+    <h1>${name}</h1>
+    <h2>${age}</h2>
+    <h3>${Phone}</h3>
+    <p><b><i>${aadhar}</i></b></p>
+    `
+
+</script>
+</body>
+
+</html>

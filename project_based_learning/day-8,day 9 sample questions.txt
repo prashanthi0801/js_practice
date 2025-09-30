@@ -1,0 +1,297 @@
+day-8
+<!-- 
+# Exercise: Registration Form Submission with Fetch API
+
+### **Student Guide**
+
+**Goal:** Build a registration form that sends the username to `http://localhost:4000/register` and displays the returned room name in `#roomDisplay`.
+
+**Instructions:**
+
+1. Create an HTML form with:
+   
+   - A text input with `name="username"` and placeholder `"Enter your username"`.
+   - A submit button with the text `"Join"`.
+
+2. Add JavaScript to:
+   
+   - Prevent page reload on submit.
+   - Create a `FormData` object with the form's data.
+   - Use `fetch()` to **POST** to `/register`.
+   - Parse the JSON response and display its `"room"` value in the `#roomDisplay` `div`.
+
+**Evaluation Criteria (Playwright testing will check this):**
+
+- Server running in student laptop.
+- Form exists and has proper elements.
+- When a valid username is entered and submitted:
+  - No page reload occurs.
+  - A POST request is made to `/register` with the correct form field.
+  - The JSON response is parsed correctly.
+  - The room name is displayed in the `#roomDisplay` div.
+
+---
+
+### **Boiler plate code**
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Registration</title>
+</head>
+<body>
+ <h1>Register for Chat</h1>
+  <form id="registerForm">
+    <input type="text" name="username" placeholder="Enter your username" required>
+    <button type="submit" id="submitBtn">Join</button>
+  </form>
+  <div id="roomDisplay"></div>
+  <script>
+    // 1. On form submit, prevent reload, create FormData, send POST request to /register using fetch
+    // 2. Update #roomDisplay with the 'room' from JSON response
+  </script>
+</body>
+</html>
+```
+
+---
+
+
+-->
+
+<config>
+    <url value=""></url>
+</config>
+-----------------------------------------------------------------------------------------------------------------------------------------
+<!-- 
+# Exercise: Registration Form Submission with Fetch API + WebSocket Connection and Welcome Message Handling
+
+### **Student Guide**
+
+**Goal:** Connect to `ws://localhost:4000` and display incoming welcome messages **only after registration**.
+
+**Instructions:**
+
+1. Connect to the WebSocket server when the page loads.
+2. When a message is received:
+   - Store it or keep it pending if the user has not registered successfully.
+   - After successful registration, show the welcome message in `#wsMessages`.
+3. Append welcome messages to the DOM instantly.
+
+**Evaluation Criteria:**
+
+- WebSocket connection is established before sending the registration form.
+- The welcome message is only shown **after** successful registration.
+- The message content is appended to the `#wsMessages` `div`.
+
+---
+
+### Boilerplate code
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Registration</title>
+</head>
+<body>
+<h1>Register for Chat</h1>
+  <form id="registerForm">
+    <input type="text" name="username" placeholder="Enter your username" required>
+    <button type="submit" id="submitBtn">Join</button>
+  </form>
+  <div id="roomDisplay"></div>
+  <h2>Chat</h2>
+  <div id="wsMessages" style="border:1px solid #ccc;height:50px;overflow-y:auto;padding:5px;"></div>
+
+  <script>
+    // Task:
+    // 1. Connect to WebSocket server ws://localhost:4000
+    // 2. Listen for incoming messages and append them to #wsMessages
+    // 3. On form submit, prevent reload, create FormData, send POST request to /register using fetch
+    // 4. Update #roomDisplay with the 'room' from JSON response
+  </script>
+</body>
+</html>
+```
+
+---
+
+
+
+-->
+
+<config>
+    <url value=""></url>
+</config>
+---------------------------------------------------------------------------------------
+/*
+QuickCart Review Classifier
+Scenario:
+Your e-commerce platform QuickCart allows customers to leave product reviews.
+Some reviews may contain:
+Positive words: good, great, excellent, amazing
+Negative words: bad, poor, terrible, awful
+You must:
+1. Classify reviews into:
+- Positive Reviews (if they contain any positive word)
+- Negative Reviews (if they contain any negative word)
+- Neutral Reviews (if neither is found)
+2. Show a summary report.
+Sample Input:
+-------------
+["This product is excellent!","The quality is terrible.","Decent value for money","Really
+good performance","Awful packaging"]
+Sample Output:
+--------------
+Positive Reviews:
+- This product is excellent!
+- Really good performance
+Negative Reviews:
+- The quality is terrible.
+- Awful packaging
+Neutral Reviews:
+- Decent value for money
+*/
+
+const readline = require('readline');
+const rl = readline.createInterface({
+input: process.stdin,
+output: process.stdout
+});
+// Step 1: Define positive and negative word arrays
+// Step 2: Function to classify reviews
+function classifyReviews(reviews) {
+    const positive = [];
+    const negative = [];
+    const neutral = [];
+    // TODO:
+    // 1. Loop through each review
+    // 2. Convert to lowercase for case-insensitive matching
+    // 3. Check if it contains any positive words
+    // 4. Else, check if it contains any negative words
+    // 5. Else, mark as neutral
+    return { positive, negative, neutral };
+}
+// Step 3: Read input array from user
+rl.question('Enter reviews as a JSON array: ', (input) => {
+    try {
+        const reviews = JSON.parse(input); // Expecting array input
+        const report = classifyReviews(reviews);
+        console.log("\nPositive Reviews:");
+        report.positive.forEach(r => console.log(`- ${r}`));
+        console.log("\nNegative Reviews:");
+        report.negative.forEach(r => console.log(`- ${r}`));
+        console.log("\nNeutral Reviews:");
+        report.neutral.forEach(r => console.log(`- ${r}`));
+    } catch (e) {
+    console.log("Invalid input. Please provide an array of reviews in JSON format.");
+    }
+});
+rl.close();
+------------------------------------------------------------------------------------------------------------
+day 9
+<!-- 
+📘 Exercise: Cookie-based Login & Notes
+App Background
+
+In this exercise, you will build a simple autosave notes app.
+When you type in the text area, your notes should be automatically saved in the browser.
+If you reload the page, your notes should still appear.
+You should also provide a Clear button to reset the notes.
+
+Your teacher has provided the following files:
+    index.html
+Do not change this file.
+
+It already contains the UI elements with the correct IDs and data-testid attributes for evaluation
+-->
+
+<config>
+    <url value=""></url>
+</config>
+----------------------------------------------------------------------------------------------------------
+<!-- 
+📘 Exercise: Cookie-based Login & Notes
+App Background
+
+In this exercise, you’ll learn how HTTP cookies work for session management.
+We have provided a backend server ( http://<Your LAN IP>:3000 ) that:
+    POST /login → accepts username + password, sets a session cookie
+    POST /logout → clears the cookie
+Your job is to build the frontend flow with a login page, a notes app page, and a logout button.
+
+Your teacher has provided the following files:
+    index.html and notes.html
+Do not change this file.
+
+It already contains the UI elements with the correct IDs and data-testid attributes for evaluation
+-->
+
+<config>
+    <url value=""></url>
+</config>
+----------------------------------------------------------------------------------------------------
+/*
+You are given:
+1. Official guest list array.
+2. Checked-in names array (with case differences or extra spaces).
+Your tasks:
+1. Write a function normalizeName(name) that:
+- Trims spaces from the start/end
+- Converts to lowercase for comparison
+2. Write a function validateAttendance(guestList, checkedIn):
+- Loops through checkedIn array
+- If the normalized name is in guestList (normalized), push to verified array
+- Else push to unknown array
+3. Find missing guests (from guestList who are NOT in checkedIn list)
+4. Return a report object:
+{
+verified: [...],
+unknown: [...],
+missing: [...]
+}
+5. In the main flow, format and print the report.
+Sample Input:
+-------------
+guestList = ["Alice Johnson", "Bob Smith", "Charlie Lee"]
+checkedIn = [" alice johnson ", "BOB SMITH", "John Doe"]
+Sample Output:
+--------------
+Verified Guests:
+- Alice Johnson
+- Bob Smith
+Unknown Guests:
+- John Doe
+Missing Guests:
+- Charlie Lee
+*/
+const readline = require('readline');
+const rl = readline.createInterface({
+input: process.stdin,
+output: process.stdout
+});
+function normalizeName(name) {
+// Implement trimming and lowercasing
+}
+function validateAttendance(guestList, checkedIn) {
+// Implement attendance validation logic
+}
+rl.question('', (input) => {
+try {
+// Implement Remove surrounding {}, then split into two arrays
+
+// Implement Parse both arrays safely using eval-like JSON
+
+//const guestList =
+//const checkedIn = 
+
+// Implement Run validation
+const report = validateAttendance(guestList, checkedIn);
+// Implement Format output
+} catch (e) {
+console.log("Invalid input format. Expected: { [guestList], [checkedIn] }");
+}
+rl.close();
+});

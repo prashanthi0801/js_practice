@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drag Without Offset</title>
+  <style>
+    #box {
+      width: 100px;
+      height: 100px;
+      background: tomato;
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      cursor: grab;
+    }
+    
+  </style>
+</head>
+<body>
+  <h2>Drag Without Offset</h2>
+  <div id="box"></div>
+
+  <script>
+    const box = document.getElementById("box");
+    let isDragging = false;
+    let offsetX =0
+    let offsetY =0
+
+    box.addEventListener("mousedown", (e) => {
+      isDragging = true;
+       offsetX=e.clientX-box.offsetLeft
+       offsetY=e.clientY - box.offsetTop
+
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (isDragging) {
+        // ❌ No offset used → box corner snaps to mouse
+        box.style.left = e.clientX+ "px";
+        box.style.top  = e.clientY + "px";
+      }
+    });
+  </script>
+</body>
+</html>

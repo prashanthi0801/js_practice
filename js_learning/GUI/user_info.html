@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random User Fetcher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #userCard {
+      border: 1px solid #ccc;
+      padding: 20px;
+      width: 250px;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    #userCard img {
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random User Info Fetcher</h1>
+  <button id="fetchBtn">Get Random User</button>
+  
+  <div id="userCard">
+    <img id="userPic" src="" alt="User Picture" width="100">
+    <h2 id="userName">Name will appear here</h2>
+    <p id="userEmail">Email will appear here</p>
+  </div>
+
+  <script >
+    // import fetch from "node-fetch"
+    let picEl=document.getElementById("userPic")
+    let nameEl=document.getElementById("userName")
+    let emailEl=document.getElementById("userEmail")
+    let buttonEl=document.getElementById("fetchBtn")
+    buttonEl.addEventListener('click',dataFetch)
+    async function dataFetch(){
+        let response=await fetch("https://randomuser.me/api/")
+        let data=await response.json()
+        console.log(data)
+        nameEl.textContent=`${data.results[0].name.first} ${data.results[0].name.last}`
+        emailEl.textContent=data.results[0].email
+        picEl.src=data.results[0].picture.large
+
+
+    }
+  
+  </script>
+</body>
+</html>

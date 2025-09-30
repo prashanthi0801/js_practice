@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Organizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    #dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .card {
+      width: 150px;
+      height: 100px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: grab;
+      user-select: none;
+    }
+    .dragging {
+      opacity: 0.5;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Card Organizer</h1>
+  <button id="addCardBtn">Add Card</button>
+  <div id="dashboard"></div>
+
+  <script>
+    // your JS will go here
+    let buttonEl=document.getElementById("addCardBtn")
+    let divEl=document.getElementById("dashboard")
+    buttonEl.addEventListener("click",card)
+     function card(){
+        let newDivEl=document.createElement("div")
+        newDivEl.setAttribute("class","card")
+    //      newDivEl.textContent = "Drag me";
+    // newDivEl.style.position = "absolute"; // needed for dragging
+    // newDivEl.style.left = "50px";
+    // newDivEl.style.top = "50px";
+        divEl.appendChild(newDivEl)
+        newDivEl.addEventListener("click",()=>{
+            divEl.removeChild(newDivEl)
+        })
+        let isDragging=false
+        let offsetX=0
+        let offsetY=0
+        newDivEl.addEventListener("mousedown",(e)=>{
+            isDragging=true
+            offsetX=e.clientX-newDivEl.style.left
+            offsetY=e.clientX-newDivEl.style.top
+
+
+        })
+        newDivEl.addEventListener("mousemove",(e)=>{
+            if(isDragging){
+                newDivEl.style.topLeft=e.clientX-offsetX+"px"
+            newDivEl.style.top=e.clientY-offsetY+"px"
+            }
+        })
+        newDivEl.addEventListener("mouseup",()=>{
+            isDragging=false
+        })
+
+     }
+   </script>
+</body>
+</html>
